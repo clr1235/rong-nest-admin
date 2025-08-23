@@ -1,0 +1,56 @@
+@use 'tailwindcss' as *;
+@use 'normalize.css' as *;
+@use './variables.css' as *;
+@use './ele.scss' as *;
+
+// 业务页面几乎都应该在根元素上挂载 class="app-container"，以保持页面美观
+.app-container {
+	padding: 20px;
+}
+
+html {
+	height: 100vh;
+	margin: 0;
+	// 灰色模式
+	&.grey-mode {
+		filter: grayscale(1);
+	}
+	// 色弱模式
+	&.color-weakness {
+		filter: invert(0.8);
+	}
+}
+
+body {
+	height: 100vh;
+	color: var(--primary-text-color);
+	background-color: var(--primary-bg-color);
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-family:
+		Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial,
+		sans-serif;
+	font-size: 14px;
+}
+
+#app {
+	height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+a,
+a:focus,
+a:hover {
+	color: inherit;
+	outline: none;
+	text-decoration: none;
+}
+
+div:focus {
+	outline: none;
+}
