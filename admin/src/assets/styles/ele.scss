@@ -1,9 +1,8 @@
-// 重置element-plus
-// @use 'element-plus/theme-chalk/el-common' with (
-// 	$colors: (
-// 		primary: (
-// 			base: var(--primary-color),
-// 			light-9: var(--primary-border-color),
-// 		),
-// 	),
-// );
+// 覆盖elment-plus主题色
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+	$colors: (
+		'primary': (
+			'base': rgb(21, 93, 251) // 就是 --primary-color 的色值
+		)
+	)
+);

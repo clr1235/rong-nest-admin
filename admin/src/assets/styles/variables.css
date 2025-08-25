@@ -2,8 +2,63 @@
 :root {
 	/* 主题色 */
 	--primary: 212 100% 45%;
-	--primary-color: oklch(62.3% 0.214 259.815);
-	--primary-border-color: oklch(92.8% 0.006 264.531);
-	--primary-text-color: oklch(21.6% 0.006 56.043);
-	--primary-bg-color: #fff;
+	--primary-color: var(--color-blue-600);
+	--primary-border-color: var(--color-gray-400);
+	--primary-text-color: var(--color-stone-950);
+	--primary-bg-color: var(--color-white);
+}
+
+@layer base {
+	/* 业务页面几乎都应该在根元素上挂载 class="app-container"，以保持页面美观 */
+	.app-container {
+		/* padding: 20px; */
+		@apply h-full;
+	}
+	#app,
+	body,
+	html {
+		@apply size-full;
+		color: var(--primary-text-color);
+		background-color: var(--primary-bg-color);
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		font-family:
+			Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial,
+			sans-serif;
+		@apply text-sm;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	a,
+	a:focus,
+	a:hover {
+		color: inherit;
+		outline: none;
+		text-decoration: none;
+	}
+	a,
+	a:active,
+	a:hover,
+	a:link,
+	a:visited {
+		@apply no-underline;
+	}
+
+	div:focus {
+		outline: none;
+	}
+}
+
+@layer components {
+	.flex-center {
+		@apply flex items-center justify-center;
+	}
+	.flex-col-center {
+		@apply flex flex-col items-center justify-center;
+	}
 }
