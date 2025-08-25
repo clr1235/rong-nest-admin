@@ -56,9 +56,6 @@ importers:
       element-plus:
         specifier: ^2.10.7
         version: 2.10.7(vue@3.5.18(typescript@5.8.3))
-      normalize.css:
-        specifier: ^8.0.1
-        version: 8.0.1
       pinia:
         specifier: ^3.0.3
         version: 3.0.3(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
@@ -90,6 +87,9 @@ importers:
       unplugin-auto-import:
         specifier: ^20.0.0
         version: 20.0.0(@vueuse/core@9.13.0(vue@3.5.18(typescript@5.8.3)))
+      unplugin-element-plus:
+        specifier: ^0.10.0
+        version: 0.10.0
       unplugin-vue-components:
         specifier: ^29.0.0
         version: 29.0.0(@babel/parser@7.28.3)(vue@3.5.18(typescript@5.8.3))
@@ -3723,9 +3723,6 @@ packages:
   normalize-wheel-es@1.2.0:
     resolution: {integrity: sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==}
 
-  normalize.css@8.0.1:
-    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
-
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
@@ -4551,6 +4548,10 @@ packages:
         optional: true
       '@vueuse/core':
         optional: true
+
+  unplugin-element-plus@0.10.0:
+    resolution: {integrity: sha512-oRSW0x6U58xBOWKy8TcoVZNA8ElIpfp3TUJRLQI6ey/E9PpjHl9/deeTAZNt8D57Li4OA4pCJtM6p2cb4Ff4ZA==}
+    engines: {node: '>=18.12.0'}
 
   unplugin-utils@0.2.5:
     resolution: {integrity: sha512-gwXJnPRewT4rT7sBi/IvxKTjsms7jX7QIDLOClApuZwR49SXbrB1z2NLUZ+vDHyqCj/n58OzRRqaW+B8OZi8vg==}
@@ -8710,8 +8711,6 @@ snapshots:
 
   normalize-wheel-es@1.2.0: {}
 
-  normalize.css@8.0.1: {}
-
   npm-run-path@4.0.1:
     dependencies:
       path-key: 3.1.1
@@ -9563,6 +9562,13 @@ snapshots:
       unplugin-utils: 0.2.5
     optionalDependencies:
       '@vueuse/core': 9.13.0(vue@3.5.18(typescript@5.8.3))
+
+  unplugin-element-plus@0.10.0:
+    dependencies:
+      es-module-lexer: 1.7.0
+      magic-string: 0.30.17
+      unplugin: 2.3.8
+      unplugin-utils: 0.2.5
 
   unplugin-utils@0.2.5:
     dependencies:
