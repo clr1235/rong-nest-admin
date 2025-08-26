@@ -16,7 +16,9 @@ export default defineConfig([
 	{
 		files: ['**/*.vue'],
 		languageOptions: {
-			parserOptions: { parser: tseslint.parser, tsconfigRootDir: __dirname, project: './tsconfig.json' }
+			parserOptions: {
+				parser: tseslint.parser
+			}
 		},
 		// 覆盖规则
 		rules: {

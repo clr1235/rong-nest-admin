@@ -2,9 +2,9 @@
 CREATE TABLE `user` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(20) NOT NULL,
-    `email` VARCHAR(50) NOT NULL,
+    `email` VARCHAR(50) NULL,
     `password` VARCHAR(20) NOT NULL,
-    `phoneNumber` VARCHAR(11) NOT NULL,
+    `phoneNumber` VARCHAR(11) NULL,
     `createTime` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updateTime` DATETIME(3) NOT NULL,
     `deleteTime` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
