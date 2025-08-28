@@ -1,8 +1,5 @@
 <template>
-	<div>
-		首页
-		<el-button type="primary">home</el-button>
-	</div>
+	<div>首页</div>
 </template>
 
 <script setup lang="ts"></script>
