@@ -1,9 +1,10 @@
 import { createApp } from 'vue'
-import '@/assets/styles/index.scss'
 import router from './router'
 import pinia from './store'
 import App from './App.vue'
 import { ElLoading } from 'element-plus'
+
+import '@/assets/styles/index.scss'
 
 const app = createApp(App)
 
