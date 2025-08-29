@@ -1,3 +1,6 @@
+// eslint-disable-next-line vue/prefer-import-from-vue
+import { isFunction, isObject, isString } from '@vue/shared'
+
 /**
  * 参数处理
  * @param {*} params  参数
@@ -23,3 +26,7 @@ export function tansParams(params: any) {
 	}
 	return result
 }
+
+export { cloneDeep } from 'lodash'
+
+export { isFunction, isObject, isString }
