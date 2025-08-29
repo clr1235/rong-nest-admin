@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"dev:admin": "pnpm run -C admin dev",
-		"dev:server": "pnpm run -C server dev",
+		"dev:server": "pnpm run -C server start",
 		"preinstall": "npx only-allow pnpm",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"prepare": "husky install",
