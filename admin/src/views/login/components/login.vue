@@ -43,8 +43,9 @@ const handleLogin = async (formEl: FormInstance | null) => {
 				password
 			}
 
-			user.login(fetchData).then((res) => {
-				if (res.data.code === 200) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			user.login(fetchData).then((res: Record<string, any>) => {
+				if (res.code === 200) {
 					ElMessage.success('登录成功')
 				}
 			})

@@ -1,7 +1,16 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import type { Prisma } from '@prisma/client';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import * as crypto from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import type { LoginUserDto } from './dto/login-user.dto';
+import { ResultData } from 'src/core/utils/result';
+import type { RegisterUserDto } from './dto/register-user.dto';
+
+function md5(str) {
+  const hash = crypto.createHash('md5');
+
+  hash.update(str);
+  return hash.digest('hex');
+}
 
 @Injectable()
 export class UserService {
@@ -9,7 +18,7 @@ export class UserService {
   private prismaService: PrismaService;
 
   // 注册
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: RegisterUserDto) {
     const userInfo = await this.prismaService.user.findUnique({
       where: {
         username: data.username,
@@ -17,11 +26,16 @@ export class UserService {
     });
 
     if (userInfo) {
-      throw new HttpException('用户名已存在', HttpStatus.BAD_REQUEST);
+      return ResultData.fail(HttpStatus.BAD_REQUEST, '用户名已存在');
     }
 
-    return this.prismaService.user.create({
-      data,
+    const userData = {
+      ...data,
+      password: md5(data.password),
+    };
+
+    const user = await this.prismaService.user.create({
+      data: userData,
       select: {
         id: true,
         username: true,
@@ -30,6 +44,7 @@ export class UserService {
         phoneNumber: true,
       },
     });
+    return ResultData.ok(user, '注册成功');
   }
 
   // 登录
@@ -41,20 +56,14 @@ export class UserService {
     });
 
     if (!userInfo) {
-      return {
-        code: HttpStatus.BAD_REQUEST,
-        msg: '用户名不存在',
-      };
+      return ResultData.fail(HttpStatus.BAD_REQUEST, '用户名不存在');
     }
 
-    if (userInfo.password !== data.password) {
-      return {
-        code: HttpStatus.BAD_REQUEST,
-        msg: '密码错误',
-      };
+    if (userInfo.password !== md5(data.password)) {
+      return ResultData.fail(HttpStatus.BAD_REQUEST, '密码错误');
     }
 
-    return this.prismaService.user.findUnique({
+    const userData = await this.prismaService.user.findUnique({
       where: {
         username: data.username,
       },
@@ -65,5 +74,7 @@ export class UserService {
         phoneNumber: true,
       },
     });
+
+    return ResultData.ok(userData, '登录成功');
   }
 }
