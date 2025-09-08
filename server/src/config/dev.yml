@@ -1,0 +1,36 @@
+# 数据库配置
+db:
+  mysql:
+    url: 'mysql://root:clr021403@localhost:3307/rong-nest-admin'
+    host: 'localhost'
+    port: 3307
+    username: 'root'
+    password: 'clr021403'
+    database: 'rong-nest-admin'
+    charset: 'utf8mb4'
+    logger: 'file'
+    logging: true
+    multipleStatements: true
+    dropSchema: false
+    synchronize: true
+    supportBigNumbers: true
+    bigNumberStrings: true
+
+# 权限 白名单配置
+perm:
+  router:
+    whitelist: [
+        # { path: '/captchaImage', method: 'GET' },
+        # { path: '/registerUser', method: 'GET' },
+        # { path: '/register', method: 'POST' },
+        { path: '/api/user/login', method: 'POST' },
+        { path: '/api/user/logout', method: 'POST' },
+        # { path: '/perm/{id}', method: 'GET' },
+        # { path: '/upload', method: 'POST' },
+      ]
+
+# jwt 配置
+jwt:
+  secretkey: 'rong-nest-admin'
+  expiresin: '1h'
+  refreshExpiresIn: '2h'

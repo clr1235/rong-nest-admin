@@ -24,3 +24,5 @@ export class ResultData {
     return new ResultData(code || 500, msg || 'fail', data);
   }
 }
+
+export type ResultDataType = Omit<ResultData, 'static'>;
