@@ -16,7 +16,7 @@ export const preferences = {
 		contentPaddingRight: 0,
 		contentPaddingTop: 0,
 		defaultAvatar: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
-		defaultHomePath: '/analytics',
+		defaultHomePath: '/home',
 		dynamicTitle: true,
 		enableCheckUpdates: true,
 		enablePreferences: true,

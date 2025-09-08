@@ -19,9 +19,14 @@
 <script setup lang="ts">
 import { ElMessage, type FormInstance } from 'element-plus'
 import { ref } from 'vue'
-import { user } from '@/api'
+
+import { useUserStore } from '@/store/user'
+import { useRouter } from 'vue-router'
+import { preferences } from '@/config/constants'
 
 const loginFormRef = ref(null)
+const userStore = useUserStore()
+const router = useRouter()
 
 const loginForm = ref({
 	username: '',
@@ -42,11 +47,11 @@ const handleLogin = async (formEl: FormInstance | null) => {
 				username,
 				password
 			}
-
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			user.login(fetchData).then((res: Record<string, any>) => {
-				if (res.code === 200) {
+			userStore.login(fetchData).then((res) => {
+				const result = res as Record<string, unknown>
+				if (result.code === 200) {
 					ElMessage.success('登录成功')
+					router.push({ path: preferences.app.defaultHomePath || '/' })
 				}
 			})
 		}

@@ -1,3 +1,5 @@
+import { user } from '@/api'
+import { getToken, setToken } from '@/utils/auth'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 interface BasicUserInfo {
@@ -5,11 +7,11 @@ interface BasicUserInfo {
 	/**
 	 * 头像
 	 */
-	avatar: string
+	avatar?: string
 	/**
 	 * 用户昵称
 	 */
-	realName: string
+	realName?: string
 	/**
 	 * 用户角色
 	 */
@@ -17,7 +19,7 @@ interface BasicUserInfo {
 	/**
 	 * 用户id
 	 */
-	userId: string
+	userId?: string
 	/**
 	 * 用户名
 	 */
@@ -33,6 +35,7 @@ interface AccessState {
 	 * 用户角色
 	 */
 	userRoles: string[]
+	token: string
 }
 
 export const useUserStore = defineStore('core-user', {
@@ -46,11 +49,26 @@ export const useUserStore = defineStore('core-user', {
 		},
 		setUserRoles(roles: string[]) {
 			this.userRoles = roles
+		},
+		login(userInfo: BasicUserInfo) {
+			return new Promise((resolve, reject) => {
+				user
+					.login(userInfo)
+					.then((res: any) => {
+						setToken(res.data.token)
+						this.token = res.data.token
+						resolve(res)
+					})
+					.catch((err) => {
+						reject(err)
+					})
+			})
 		}
 	},
 	state: (): AccessState => ({
 		userInfo: null,
-		userRoles: []
+		userRoles: [],
+		token: getToken() ?? ''
 	})
 })
 
