@@ -27,14 +27,7 @@ const coreRoutes: RouteRecordRaw[] = [
 		name: 'Root',
 		path: '/',
 		redirect: preferences.app.defaultHomePath,
-		children: [
-			{
-				path: '/home',
-				component: () => import('@/views/home/index.vue'),
-				name: 'Home',
-				meta: { title: '首页', icon: 'dashboard', affix: true }
-			}
-		]
+		children: []
 	},
 	{
 		name: 'Login',

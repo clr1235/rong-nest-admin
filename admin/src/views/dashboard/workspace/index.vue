@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<span>About</span>
+		<span>workspace</span>
 	</div>
 </template>
 

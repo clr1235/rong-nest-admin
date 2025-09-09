@@ -2,7 +2,6 @@ import type { Router } from 'vue-router'
 import { accessRoutes, coreRouteNames } from './routes'
 import { useAccessStore } from '@/store/access'
 import { useUserStore } from '@/store/user'
-import { useAuthStore } from '@/store/auth'
 import { generateAccess } from './access'
 import { loginPath, preferences } from '@/config/constants'
 
@@ -39,9 +38,9 @@ function setupAccessGuard(router: Router) {
 	router.beforeEach(async (to, from) => {
 		const accessStore = useAccessStore()
 		const userStore = useUserStore()
-		const authStore = useAuthStore()
 
 		// 基本路由不需要进行权限拦截
+		console.log(coreRouteNames, 'coreRouteNames=====')
 		if (coreRouteNames.includes(to.name as string)) {
 			if (to.path === loginPath && accessStore.accessToken) {
 				return decodeURIComponent(
@@ -77,8 +76,8 @@ function setupAccessGuard(router: Router) {
 
 		// 生成路由表
 		// 当前登录用户拥有的角色标识列表
-		console.log('userInfo', userStore.userInfo)
-		const userInfo = userStore.userInfo || (await authStore.fetchUserInfo())
+		console.log('userInfo---', userStore.userInfo)
+		const userInfo = userStore.userInfo || (await userStore.fetchUserInfo())
 		const userRoles = userInfo.roles ?? []
 
 		// 生成菜单和路由

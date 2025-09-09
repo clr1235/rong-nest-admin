@@ -13,6 +13,7 @@ import { ElLoading } from 'element-plus'
 import { mapTree } from '@/utils/tree'
 import { generateMenus } from './menu'
 import { getMenuList } from '@/api/menu'
+import { menus } from '@/config/constants'
 
 const forbiddenComponent = () => import('@/views/_core/fallback/forbidden.vue')
 
@@ -152,12 +153,15 @@ async function generateAccess(options: any) {
 	return await generateAccessible('backend', {
 		...options,
 		fetchMenuListAsync: async () => {
-			ElLoading.service({
-				lock: true,
-				text: '加载中...',
-				background: 'rgba(26, 15, 15, 0.7)'
-			})
-			return await getMenuList()
+			// ElLoading.service({
+			// 	lock: true,
+			// 	text: '加载中...',
+			// 	background: 'rgba(26, 15, 15, 0.7)'
+			// })
+			// return await getMenuList()
+
+			// 先返回mock数据，保证流程
+			return menus
 		},
 		// 可以指定没有权限跳转403页面
 		forbiddenComponent,

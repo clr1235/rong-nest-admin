@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from '@/utils/auth'
+import { useAccessStore } from '@/store/access'
 import { tansParams } from '@/utils/index'
 import cache from '@/utils/cache'
 import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
@@ -20,12 +20,13 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
 	(config) => {
+		const accessStore = useAccessStore()
 		// 是否需要设置 token
 		const isToken = (config.headers || {}).isToken === false
 		// 是否需要防止数据重复提交
 		const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
-		if (getToken() && !isToken) {
-			config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+		if (accessStore.accessToken && !isToken) {
+			config.headers['Authorization'] = 'Bearer ' + accessStore.accessToken // 让每个请求携带自定义token 请根据实际情况自行修改
 		}
 		// get请求映射params参数
 		if (config.method === 'get' && config.params) {

@@ -33,4 +33,12 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
   //   if (!user) throw new UnauthorizedException('登录已过期，请重新登录');
   //   return user;
   // }
+
+  async validate(payload) {
+    console.log(payload, 'payload====');
+    return {
+      userId: payload.userId,
+      username: payload.username,
+    };
+  }
 }

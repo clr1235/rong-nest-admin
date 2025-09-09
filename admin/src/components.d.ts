@@ -12,6 +12,7 @@ declare module 'vue' {
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     Fallback: typeof import('./components/fallback/fallback.vue')['default']
     Icon403: typeof import('./components/fallback/icons/icon-403.vue')['default']

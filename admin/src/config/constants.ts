@@ -16,7 +16,7 @@ export const preferences = {
 		contentPaddingRight: 0,
 		contentPaddingTop: 0,
 		defaultAvatar: 'https://unpkg.com/@vbenjs/static-source@0.1.7/source/avatar-v1.webp',
-		defaultHomePath: '/home',
+		defaultHomePath: '/analytics',
 		dynamicTitle: true,
 		enableCheckUpdates: true,
 		enablePreferences: true,
@@ -133,3 +133,34 @@ export const preferences = {
 		themeToggle: true
 	}
 }
+
+export const menus = [
+	{
+		meta: {
+			order: -1,
+			title: 'page.dashboard.title'
+		},
+		name: 'Dashboard',
+		path: '/dashboard',
+		redirect: '/analytics',
+		children: [
+			{
+				name: 'Analytics',
+				path: '/analytics',
+				component: '/dashboard/analytics/index',
+				meta: {
+					affixTab: true,
+					title: 'page.dashboard.analytics'
+				}
+			},
+			{
+				name: 'Workspace',
+				path: '/workspace',
+				component: '/dashboard/workspace/index',
+				meta: {
+					title: 'page.dashboard.workspace'
+				}
+			}
+		]
+	}
+]

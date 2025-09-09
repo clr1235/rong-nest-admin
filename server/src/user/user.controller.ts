@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Post, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -31,5 +31,19 @@ export class UserController {
       },
     );
     return result;
+  }
+
+  @Post('info')
+  async getUserInfo(@Req() req) {
+    return this.userService.getUserInfo(req.user);
+  }
+
+  @Post('menu')
+  async getMenus() {
+    return {
+      code: 200,
+      data: [],
+      msg: 'success',
+    };
   }
 }

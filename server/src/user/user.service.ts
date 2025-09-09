@@ -77,4 +77,20 @@ export class UserService {
 
     return ResultData.ok(userData, '登录成功');
   }
+
+  // 获取用户信息
+  async getUserInfo(userData: any) {
+    const userInfo = await this.prismaService.user.findUnique({
+      where: {
+        id: userData.userId,
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        phoneNumber: true,
+      },
+    });
+    return ResultData.ok(userInfo, '获取用户信息成功');
+  }
 }

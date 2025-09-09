@@ -1,5 +1,6 @@
 import { user } from '@/api'
-import { getToken, setToken } from '@/utils/auth'
+import type { UserInfo } from '@/types'
+import { useAccessStore } from '@/store/access'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 interface BasicUserInfo {
@@ -51,11 +52,12 @@ export const useUserStore = defineStore('core-user', {
 			this.userRoles = roles
 		},
 		login(userInfo: BasicUserInfo) {
+			const accessStore = useAccessStore()
 			return new Promise((resolve, reject) => {
 				user
 					.login(userInfo)
 					.then((res: any) => {
-						setToken(res.data.token)
+						accessStore.setAccessToken(res.data.token)
 						this.token = res.data.token
 						resolve(res)
 					})
@@ -63,13 +65,22 @@ export const useUserStore = defineStore('core-user', {
 						reject(err)
 					})
 			})
+		},
+		// 获取用户信息
+		async fetchUserInfo() {
+			const userData = (await user.getUserInfo({})) as unknown as UserInfo
+			this.setUserInfo(userData.data)
+			return userData
 		}
 	},
-	state: (): AccessState => ({
-		userInfo: null,
-		userRoles: [],
-		token: getToken() ?? ''
-	})
+	state: (): AccessState => {
+		const accessStore = useAccessStore()
+		return {
+			userInfo: null,
+			userRoles: [],
+			token: accessStore.accessToken ?? ''
+		}
+	}
 })
 
 // 解决热更新问题
