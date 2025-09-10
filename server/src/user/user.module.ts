@@ -6,20 +6,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    // JwtModule.registerAsync({
-    //   global: true,
-    //   useFactory() {
-    //     return {
-    //       secret: 'rong-nest-admin',
-    //       signOptions: { expiresIn: '7d' },
-    //     };
-    //   },
-    // }),
+    // 动态注册 JWT 模块，允许在运行时从外部配置中获取 JWT 的相关配置。
     JwtModule.registerAsync({
       imports: [ConfigModule],
       global: true,
       useFactory: async (config: ConfigService) => {
-        console.log(config.get('jwt.secretkey'), 'config---');
         return {
           secret: config.get('jwt.secretkey'),
         };

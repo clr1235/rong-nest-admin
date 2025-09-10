@@ -34,3 +34,10 @@ jwt:
   secretkey: 'rong-nest-admin'
   expiresin: '1h'
   refreshExpiresIn: '2h'
+
+# redis 配置
+redis:
+  host: 'localhost'
+  port: 6379
+  db: 0
+  keyPrefix: ''

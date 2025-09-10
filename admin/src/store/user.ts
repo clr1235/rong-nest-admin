@@ -2,6 +2,7 @@ import { user } from '@/api'
 import type { UserInfo } from '@/types'
 import { useAccessStore } from '@/store/access'
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import router from '@/router'
 
 interface BasicUserInfo {
 	[key: string]: any
@@ -65,6 +66,17 @@ export const useUserStore = defineStore('core-user', {
 						reject(err)
 					})
 			})
+		},
+		logout() {
+			const accessStore = useAccessStore()
+			// 清除所有登录相关的信息
+			accessStore.setAccessToken(null)
+			accessStore.setRefreshToken(null)
+			accessStore.setIsAccessChecked(false)
+			this.setUserInfo(null)
+
+			console.log('logout')
+			router.push({ path: '/login' })
 		},
 		// 获取用户信息
 		async fetchUserInfo() {

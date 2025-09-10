@@ -1,4 +1,10 @@
-import { Inject, Injectable, ExecutionContext } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  ExecutionContext,
+  ForbiddenException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
@@ -30,6 +36,18 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       console.log('白名单路由跳过验证');
       return true;
     }
+
+    // 接口路由判断是否有token
+    const req = ctx.switchToHttp().getRequest();
+    const accessToken = req.get('Authorization');
+
+    if (!accessToken) {
+      throw new ForbiddenException('请重新登录');
+    }
+    // const atUserId = await this.userService.parseToken(accessToken);
+    // if (!atUserId) {
+    //   throw new UnauthorizedException('当前登录已过期，请重新登录');
+    // }
 
     return this.activate(ctx);
   }

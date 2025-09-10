@@ -21,15 +21,11 @@ export class UserController {
   async login(@Body() userInfo: LoginUserDto) {
     const result: ResultDataType = await this.userService.login(userInfo);
     // 登录成功之后返回jwt生成的token
-    result.data.token = this.jwtService.sign(
-      {
-        userId: result.data.id,
-        username: result.data.username,
-      },
-      {
-        expiresIn: '7d',
-      },
-    );
+    result.data.token = this.userService.createToken({
+      userId: result.data.id,
+      username: result.data.username,
+    });
+    delete result.data.password;
     return result;
   }
 
