@@ -44,10 +44,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (!accessToken) {
       throw new ForbiddenException('请重新登录');
     }
-    // const atUserId = await this.userService.parseToken(accessToken);
-    // if (!atUserId) {
-    //   throw new UnauthorizedException('当前登录已过期，请重新登录');
-    // }
+    const atUserId = await this.userService.parseToken(accessToken);
+    if (!atUserId) {
+      throw new UnauthorizedException('当前登录已过期，请重新登录');
+    }
 
     return this.activate(ctx);
   }
@@ -65,6 +65,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     try {
       await this.activate(ctx);
     } catch (e) {
+      console.log(e, '跳过验证--失败');
       // 未登录不做任何处理，直接返回 true
     }
 

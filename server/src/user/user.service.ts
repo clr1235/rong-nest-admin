@@ -27,6 +27,23 @@ export class UserService {
     return accessToken;
   }
 
+  /**
+   * 从令牌token中解析数据
+   *
+   * @param token 令牌
+   * @return 数据声明
+   */
+  parseToken(token: string) {
+    try {
+      if (!token) return null;
+      const payload = this.jwtService.verify(token.replace('Bearer ', ''));
+      return payload;
+    } catch (error) {
+      console.log(error, '解析token失败');
+      return null;
+    }
+  }
+
   // 注册
   async create(data: RegisterUserDto) {
     // 同步生成盐
