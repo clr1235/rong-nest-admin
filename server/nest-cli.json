@@ -4,7 +4,12 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "assets": ["**/*.yml"],
+    "assets": [
+      {
+        "include": "**/*.yml",
+        "outDir": "dist/src"
+      }
+    ],
     "watchAssets": true
   },
   "generateOptions": {

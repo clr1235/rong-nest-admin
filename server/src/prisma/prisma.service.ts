@@ -1,9 +1,10 @@
-import { Injectable, type OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
-  constructor() {
+  constructor(@Inject(ConfigService) private configService: ConfigService) {
     super({
       log: [
         // 设置PrismaClient的log参数，将打印sql到控制台

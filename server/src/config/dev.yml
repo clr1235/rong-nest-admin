@@ -22,7 +22,7 @@ perm:
     whitelist: [
         # { path: '/captchaImage', method: 'GET' },
         # { path: '/registerUser', method: 'GET' },
-        # { path: '/register', method: 'POST' },
+        { path: '/api/user/register', method: 'POST' },
         { path: '/api/user/login', method: 'POST' },
         { path: '/api/user/logout', method: 'POST' },
         # { path: '/perm/{id}', method: 'GET' },

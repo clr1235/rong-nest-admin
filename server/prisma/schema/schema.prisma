@@ -11,14 +11,15 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("db.mysql.url")
+  url      = env("DATABASE_URL")
 }
 
+// 用户表
 model User {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   username    String   @unique @db.VarChar(20)
   email       String?  @unique @db.VarChar(50)
-  password    String   @db.VarChar(50)
+  password    String   @db.VarChar(120)
   phoneNumber String?  @unique @db.VarChar(11)
   createTime  DateTime @default(now())
   updateTime  DateTime @updatedAt

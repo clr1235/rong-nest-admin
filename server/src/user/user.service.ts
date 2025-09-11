@@ -1,5 +1,5 @@
 import { HttpStatus, Inject, Injectable } from '@nestjs/common';
-import * as crypto from 'crypto';
+import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ResultData } from 'src/core/utils/result';
@@ -8,13 +8,6 @@ import { JwtService } from '@nestjs/jwt';
 import { CacheEnum } from 'src/common/enum';
 import { LOGIN_TOKEN_EXPIRESIN } from 'src/common/constants';
 import { RedisService } from 'src/common/redis/redis.service';
-
-function md5(str) {
-  const hash = crypto.createHash('md5');
-
-  hash.update(str);
-  return hash.digest('hex');
-}
 
 @Injectable()
 export class UserService {
@@ -36,6 +29,11 @@ export class UserService {
 
   // 注册
   async create(data: RegisterUserDto) {
+    // 同步生成盐
+    const salt = bcrypt.genSaltSync(10);
+    // 同步加密密码
+    const hashPassword = bcrypt.hashSync(data.password, salt);
+
     const userInfo = await this.prismaService.user.findUnique({
       where: {
         username: data.username,
@@ -48,7 +46,7 @@ export class UserService {
 
     const userData = {
       ...data,
-      password: md5(data.password),
+      password: hashPassword,
     };
 
     const user = await this.prismaService.user.create({
@@ -81,8 +79,8 @@ export class UserService {
     if (!userInfo) {
       return ResultData.fail(HttpStatus.BAD_REQUEST, '用户名不存在');
     }
-
-    if (userInfo.password !== md5(data.password)) {
+    // 对比密码
+    if (!bcrypt.compareSync(data.password, userInfo.password)) {
       return ResultData.fail(HttpStatus.BAD_REQUEST, '密码错误');
     }
 
